@@ -11,7 +11,6 @@ public class Main {
         car.drive();
 
 
-
         Motorcycle moto = new Motorcycle("Yamaha");
         moto.drive();
         System.out.println(moto.toString());

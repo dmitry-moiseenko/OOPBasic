@@ -1,52 +1,26 @@
 package ua.com.juja.a7_polymorph.asd.Apartment;
 
-import ua.com.juja.a7_polymorph.asd.Owner;
+import ua.com.juja.a7_polymorph.asd.Room;
 
-public class Apartment extends AbstractApartment {
-
-    private Owner[] owners;
-    private int capacity;
+public abstract class Apartment {
+    private Room[] rooms;
+    protected int number;
 
     public Apartment(int number, int capacity) {
-        super(number, capacity);
-        this.capacity = capacity;
-        owners = new Owner[capacity];
-    }
-    @Override
-    public boolean isFree() {
-        return nextIndex() != -1;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void addOwner(Owner owner) {
-        int i = nextIndex();
-        if (i == -1) {
-            throw new RuntimeException("Apartment is full!");
+        this.number = number;
+        rooms = new Room[capacity];
+        for (int i = 0; i < capacity; i++) {
+            rooms[i] = new Room();
         }
-        owners[i] = owner;
-    }
-
-    private int nextIndex() {
-        for (int i = 0; i < owners.length; i++) {
-            if (owners[i] == null) {
-                return i;
-            }
-        }
-        return -1;
     }
     @Override
     public String toString() {
-        String result = super.toString();
-        result += "\t\tMy capacity is:" + capacity + " with owners:\n";
-        for (Owner owner : owners) {
-            if (owner != null) {
-                result += "\t\t\t" + owner.toString() + "\n";
-            }
-        }
-        result += "\t\tMy free status is:" + isFree()+ "\n";
+        String apartmentName = this.getClass().getSimpleName();
+        String result = "Hi, I am an " + apartmentName + " #" + number + "\n";
         return result;
+    }
+
+    public boolean isFree(){
+        return false;
     }
 }

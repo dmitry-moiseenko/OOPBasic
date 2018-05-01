@@ -1,6 +1,6 @@
 package ua.com.juja.a7_polymorph.asd.Apartment;
 
-public class TechnicalApartment extends AbstractApartment{
+public class TechnicalApartment extends Apartment {
 
     public TechnicalApartment(int number, int capacity) {
         super(number, capacity);

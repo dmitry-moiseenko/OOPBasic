@@ -11,8 +11,7 @@ public class Owner {
     }
 
 
-
-    public String toString(){
+    public String toString() {
         return fio.toString();
     }
 
@@ -21,7 +20,7 @@ public class Owner {
     }
 
     public void setCityVehicle(CityVehicle cityVehicle, Owner owner) {
-        if (fio.equals(owner.fio)){
+        if (fio.equals(owner.fio)) {
             this.cityVehicle = cityVehicle;
         }
     }

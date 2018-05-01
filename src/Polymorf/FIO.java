@@ -12,6 +12,6 @@ public class FIO {
 
 
     public String toString() {
-        return this.name + "." + this.surname ;
+        return this.name + "." + this.surname;
     }
 }
