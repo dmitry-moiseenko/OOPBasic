@@ -1,19 +1,6 @@
 package LAB28_32;
 
-/*
-addShipToEndQueue() - метод, который добавляет корабль в конец очереди.
-Если очередь полная необходимо вернуть -1.
-Если корабль успешно добавлен в очередь, необходимо вернуть его индекс в массиве очереди.
-
-removeShipFromBeginQueue() - метод, который удаляет корабль из начала очереди. Если очередь пуста необходимо вернуть -1.
-Если корабль успешно удален вернуть 1. При удалении корабля обеспечить продвижение кораблей в начало очереди.
-(Подсказка: очередь - массив, поэтому можно использовать методы из стандартных пакетов для работы с массивами)
-
-printQueueShip() - метод, который печатает информацию про корабли в очереди.
-Если в очереди нет кораблей вернуть строку "QueueEmpty",
-иначе на выходе ожидается строка в виде конкатенации печати информации о корабле.
-Выходная строка имеет следующий вид: {Name=<>Length=<>Width=<>Displacement=<>};{Name=<>Length=<>Width=<>Displacement=<>};
- */
+import java.util.ArrayList;
 
 class OdessaSeaPort implements SeaPortQueue {
     private static final int NO_SHIP_IN_ARRAY = -1;
@@ -22,7 +9,7 @@ class OdessaSeaPort implements SeaPortQueue {
 
     @Override
     public int addShipToEndQueue(AbstractShip ship) {
-        if (indexShipInPort == 2){
+        if (indexShipInPort == 2) {
             return -1;
         }
         indexShipInPort++;
@@ -35,12 +22,12 @@ class OdessaSeaPort implements SeaPortQueue {
 
     @Override
     public int removeShipFromBeginQueue() {
-        if (arrayShip[0] == null){
+        if (arrayShip[0] == null) {
             return -1;
         }
         AbstractShip[] arrayShip = new AbstractShip[LENGTH_QUEUE_SHIP];
-        for (int i = 0; i < LENGTH_QUEUE_SHIP-1; i++) {
-            arrayShip[i] = this.arrayShip[i+1];
+        for (int i = 0; i < LENGTH_QUEUE_SHIP - 1; i++) {
+            arrayShip[i] = this.arrayShip[i + 1];
         }
         this.arrayShip = arrayShip;
         return 1;
@@ -48,16 +35,48 @@ class OdessaSeaPort implements SeaPortQueue {
 
     @Override
     public String printQueueShip() {
-        if (arrayShip[0] == null){
+        if (arrayShip[0] == null) {
             return "QueueEmpty";
         }
         String result = "";
         for (int i = 0; i < LENGTH_QUEUE_SHIP; i++) {
-            if(arrayShip[i] == null){
+            if (arrayShip[i] == null) {
                 break;
             }
             result += "{" + arrayShip[i].toPrint() + "};";
         }
         return result;
     }
+
+    public static String sortSumPaymentAsc(AbstractShip[] arrayShips) {
+        if (arrayShips == null) {
+            return "";
+        }
+        ArrayList<AbstractShip> arrayList = new ArrayList<AbstractShip>();
+        String result = "";
+        for (int i = 0; i < arrayShips.length; i++) {
+            arrayList.add(arrayShips[i]);
+
+        }
+        for (int i = 0; i < arrayList.size() - 1; i++) {
+            for (int j = arrayList.size() - 1; j > i; j--) {
+                if (arrayList.get(j).calculatePayment() < arrayList.get(j - 1).calculatePayment()) {
+                    arrayList.add(arrayList.get(j));
+                    arrayList.set(j, arrayList.get(j - 1));
+                    arrayList.set(j - 1, arrayList.get(arrayList.size() - 1));
+                    arrayList.remove(arrayList.size() - 1);
+                }
+            }
+        }
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            result += arrayList.get(i).getName() + "=" + arrayList.get(i).calculatePayment();
+            System.out.println(result);
+        }
+
+        return result;
+
+    }
+
+
 }
